@@ -73,9 +73,9 @@ def f1_score(recalls, precisions, mode='area'):
     f1 = []
     for scale_recalls, scale_precisions in zip(recalls, precisions):
         if len(scale_recalls) == 0:
-            scale_recalls = [0]
+            scale_recalls = np.array([0])
         if len(scale_precisions) == 0:
-            scale_precisions = [0]
+            scale_precisions = np.array([0])
 
         scale_f1 = 2 * scale_recalls * scale_precisions / np.maximum(scale_recalls + scale_precisions, np.finfo(np.float64).eps)
         f1.append(scale_f1)
@@ -543,7 +543,7 @@ def print_map_summary(mean_ap,
     if not isinstance(mean_ap, list):
         mean_ap = [mean_ap]
 
-    header = ['class', 'gts', 'dets', 'recall', 'ap', 'f1', 'yewu2']
+    header = ['class', 'gts', 'dets', 'recall', 'precision', 'ap', 'f1', 'yewu2']
     for i in range(num_scales):
         if scale_ranges is not None:
             _print('Scale range ', scale_ranges[i])
@@ -554,6 +554,7 @@ def print_map_summary(mean_ap,
                 num_gts[i, j],
                 results[j]['num_dets'],
                 '{:.3f}'.format(recalls[i, j]),
+                '{:.3f}'.format(precisions[i, j]),
                 '{:.3f}'.format(aps[i, j]),
                 '{:.3f}'.format(f1[i, j]),
                 '{:.3f}'.format(yewu2[i, j]),

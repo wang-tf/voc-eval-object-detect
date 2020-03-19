@@ -6,8 +6,8 @@ def wider_face_classes():
 
 
 def voc_classes():
-    return ['SteelPipe', 'rebar'
-    ]
+    return ['SteelPipe', 'rebar']
+    # return ['mask', 'nomask']
 
 
 def imagenet_det_classes():
